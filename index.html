@@ -155,7 +155,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 .cart .inf{flex:1;min-width:0}
 .cart .inf b{font:900 20px Montserrat;display:block;line-height:1.1}
 .cart .inf span{font-size:13px;color:#555;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cart .btn{padding:13px 18px;font-size:13px;background:#25D366;color:#fff}
+.cart .btn{padding:13px 16px;font-size:13px;background:#25D366;color:#fff}
+.cart #cGo{background:var(--y);color:#000}
+.av{display:inline-block;margin-top:6px;font:800 11px Montserrat;padding:4px 9px;border-radius:99px;text-transform:uppercase;letter-spacing:.3px}
+.av.ok{background:rgba(34,197,94,.14);color:#4ade80}.av.no{background:rgba(239,68,68,.14);color:#f87171}
+.item.off{opacity:.45;cursor:not-allowed}.item.off:hover{transform:none;border-color:var(--line)}
 .cart .x{background:none;border:0;font-size:20px;cursor:pointer;color:#888;padding:4px}
 .wa-fab{position:fixed;right:20px;bottom:20px;z-index:55;width:60px;height:60px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 10px 30px rgba(37,211,102,.45);transition:.3s}
 .wa-fab:hover{transform:scale(1.08)}
@@ -394,6 +398,7 @@ body.has-cart .wa-fab{opacity:0;pointer-events:none}
 
 <div class="cart" id="cart">
   <div class="inf"><b id="cTot">0 ₸</b><span id="cList"></span></div>
+  <a class="btn" id="cWa" target="_blank" rel="noopener" aria-label="WhatsApp">💬 <span>WhatsApp</span></a>
   <button class="btn" id="cGo">Оформить →</button>
   <button class="x" id="cClr" aria-label="Очистить">✕</button>
 </div>
@@ -414,6 +419,10 @@ const SPOT = [["kraskopult","Краскопульт MAUNT 595","от 10 000 ₸"
   ["saw","Торцовочная пила ALTECO","от 5 500 ₸"],["vacuum","Пылесос ALTECO VC 30","4 500 ₸"],
   ["shtrob","Штроборез ALTECO","5 000 ₸"],["tura","Вышка-тура 5 м","6 000 ₸"],["combo","Комбо-наборы","−10%"],["saran","Филиал в Сарани","ул. Абая, 27"]];
 const TIDS = Object.keys(CATALOG);
+let STOCK = null;
+const freeOf = id => { if (!STOCK) return null; return Math.min(...(COMBO_PARTS[id] || [id]).map(x => STOCK[x] ? STOCK[x].free : 99)); };
+const avBadge = id => { const f = freeOf(id); return f === null ? "" : f > 0 ? `<span class="av ok">${t("Свободно: {n}",{n:f})}</span>` : `<span class="av no">${t("Занято")}</span>`; };
+async function loadStock(){ try { const r = await api("stock", {}); if (r.ok) { STOCK = r.stock; draw(); } } catch {} }
 const $ = s => document.querySelector(s);
 const store = { get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}}, set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}} };
 
@@ -432,15 +441,15 @@ $("#q").oninput=e=>{q=e.target.value.toLowerCase();draw()};
 const G=$("#grid");
 function draw(){
   G.innerHTML=TIDS.filter(id=>(cat=="all"||CATALOG[id][2]==cat)&&CATALOG[id][0].toLowerCase().includes(q)).map(id=>{const t=CATALOG[id];return `
-    <div class="item${cart.has(id)?" in":""}" data-i="${id}">
+    <div class="item${cart.has(id)?" in":""}${freeOf(id)===0&&!cart.has(id)?" off":""}" data-i="${id}">
       ${t[4]?'<span class="hit">Хит</span>':""}
       <div class="emo">${t[3]}</div>
-      <div><div class="tag">${CATS[t[2]]}</div><h3>${t[0]}</h3></div>
+      <div><div class="tag">${CATS[t[2]]}</div><h3>${t[0]}</h3>${avBadge(id)}</div>
       <div class="bot"><div class="price">${fmt(t[1])}<small>за сутки</small></div><button class="add" aria-label="Добавить">${cart.has(id)?"✓":"+"}</button></div>
     </div>`}).join("")||'<p style="color:var(--mut)">Ничего не найдено. Напишите нам, возможно, привезём под заказ.</p>';
   translate(G);drawCombos();
 }
-function toggle(id){cart.has(id)?cart.delete(id):cart.add(id);draw();upd()}
+function toggle(id){if(!cart.has(id)&&freeOf(id)===0)return;cart.has(id)?cart.delete(id):cart.add(id);draw();upd()}
 G.onclick=e=>{const it=e.target.closest(".item");if(it)toggle(it.dataset.i)};
 const perDay=()=>[...cart].reduce((s,i)=>s+itemPrice(i),0);
 function upd(){
@@ -448,6 +457,7 @@ function upd(){
   $("#cart").classList.toggle("on",cart.size>0);document.body.classList.toggle("has-cart",cart.size>0);
   $("#cTot").textContent=t("{n} / сутки",{n:fmt(perDay())});
   $("#cList").textContent=[...cart].map(itemName).join(", ");
+  $("#cWa").href=waLink(t("Здравствуйте! Хочу арендовать:")+"\n"+[...cart].map(i=>`• ${itemName(i)} — ${fmt(itemPrice(i))}`).join("\n")+"\n"+t("Итого: {n} в сутки",{n:fmt(perDay())})+"\n"+t("Срок и адрес уточню в чате."));
 }
 $("#cClr").onclick=()=>{cart.clear();draw();upd()};
 
@@ -455,7 +465,7 @@ function drawCombos(){
   $("#combos").innerHTML=Object.entries(COMBOS).map(([id,c])=>{const [a,b]=c[0].split(" + ");return `
   <div class="cb rv v"><h3>${a} <b>+</b> ${b}</h3>
   <div class="row"><div><div class="old">${fmt(c[1])}</div><div class="new">${fmt(c[2])}</div></div><div class="save">${t("Выгода {n}",{n:fmt(c[1]-c[2])})}</div></div>
-  <button class="btn" data-c="${id}"${cart.has(id)?' style="background:#fff"':""}>${cart.has(id)?"✓ В заказе":"Взять комбо"}</button></div>`}).join("");translate($("#combos"));
+  ${freeOf(id)===0&&!cart.has(id)?`<button class="btn" disabled style="opacity:.45;cursor:not-allowed">${t("Занято")}</button>`:`<button class="btn" data-c="${id}"${cart.has(id)?' style="background:#fff"':""}>${cart.has(id)?"✓ В заказе":"Взять комбо"}</button>`}</div>`}).join("");translate($("#combos"));
 }
 $("#combos").onclick=e=>{const b=e.target.closest("[data-c]");if(b)toggle(b.dataset.c)};
 draw();upd();
@@ -627,7 +637,7 @@ async function sign(){
   const r=await api("createOrder",{...d,mode:S.mode,address:S.mode==="delivery"?S.address.trim():QS.BRANCHES[S.mode],comment:S.comment,code:S.code}).catch(()=>({ok:false,error:"Нет связи, попробуйте ещё раз"}));
   busy(b,false);
   if(!r.ok)return $("#err").textContent=t(r.error);
-  S.order=r.order;S.step=3;render();
+  S.order=r.order;S.step=3;render();loadStock();
 }
 
 /* ===== прочее ===== */
@@ -644,7 +654,7 @@ document.querySelectorAll(".rv").forEach(el=>io.observe(el));
 
 const LB=$("#lang");const paintLang=()=>{LB.textContent=LANG.cur==="kz"?"РУС":"ҚАЗ"};
 LB.onclick=()=>{setLang(LANG.cur==="kz"?"ru":"kz");paintLang();translate();draw();upd();if($("#co").classList.contains("on"))render()};
-paintLang();translate();
+paintLang();translate();loadStock();setInterval(()=>{if(document.visibilityState==="visible")loadStock()},60000);
 </script>
 </body>
 </html>

@@ -63,6 +63,18 @@ header{position:sticky;top:0;z-index:10;background:rgba(11,11,12,.92);backdrop-f
 .md #mdR img{max-width:100%;border-radius:10px;display:block;margin:0 auto}.md #mdR iframe{width:100%;height:70vh;border:0}
 .md pre{white-space:pre-wrap;font:14px/1.6 Georgia,serif}
 .md .sig{margin-top:18px;padding-top:12px;border-top:1px solid #ddd;font:13px Inter;color:#444}
+.sk{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--g);border-radius:14px;padding:12px 14px;display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center}
+.sk.no{border-left-color:var(--r)}
+.sn{font-weight:700}
+.qt{display:flex;align-items:center;gap:10px}.qt b{font:900 20px Montserrat;min-width:26px;text-align:center}
+.qt button{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:#0f0f11;color:var(--y);font:900 18px Montserrat;cursor:pointer}
+.mol{display:grid;grid-template-columns:1fr 1fr;gap:6px;max-height:38vh;overflow:auto;margin-bottom:12px}
+.mo{display:flex;gap:8px;align-items:center;font-size:14px;padding:8px;border:1px solid #e4e4e7;border-radius:10px;cursor:pointer}
+.mo.dis{opacity:.45;cursor:not-allowed}.mo .mut{color:#71717a;font-size:12px;margin-left:auto}
+.mfg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mfg label,.mfl{display:block;font:700 12px Montserrat;color:#52525b;margin-bottom:10px}
+.mfg input,.mfg select,.mfl input{display:block;width:100%;margin-top:4px;border:1px solid #d4d4d8;border-radius:10px;padding:10px;font:15px Inter}
+@media(max-width:560px){.sk{grid-template-columns:1fr auto}.sk .bd{grid-column:1/-1;justify-self:start}.mol{grid-template-columns:1fr}}
 .md .ab{display:flex;gap:8px;margin-top:18px;justify-content:flex-end}
 .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#fff;color:#000;padding:10px 16px;border-radius:10px;font:700 14px Montserrat;z-index:60;opacity:0;transition:.3s;pointer-events:none}
 .toast.on{opacity:1}
@@ -76,13 +88,14 @@ header{position:sticky;top:0;z-index:10;background:rgba(11,11,12,.92);backdrop-f
 <header><div class="wrap nav">
   <div class="logo"><svg viewBox="0 0 100 100" width="34" height="34"><path d="M50 4 90 27v46L50 96 10 73V27z" fill="none" stroke="#FFD400" stroke-width="10"/></svg>
     <div>QURAL <i>SAIMAN</i><small>Панель ответственного</small></div></div>
-  <div style="display:flex;gap:8px"><button class="btn gh" id="ref">↻ Обновить</button><button class="btn gh" id="out" title="Выйти">⎋</button></div>
+  <div style="display:flex;gap:8px"><button class="btn gh" id="vw">📦 Склад</button><button class="btn gh" id="ref">↻</button><button class="btn gh" id="out" title="Выйти">⎋</button></div>
 </div></header>
 
 <main class="wrap" id="app"></main>
 
 <div class="md" id="md"><div class="box"><div id="mdR"></div><pre id="mdT"></pre><div class="sig" id="mdS"></div>
   <div class="ab"><button class="btn gh" style="color:#000;background:#eee" onclick="print()">🖨 Печать</button><button class="btn" id="mdX">Закрыть</button></div></div></div>
+<div class="md" id="mf"><div class="box" id="mfB"></div></div>
 <div class="toast" id="toast"></div>
 
 <script src="app.js"></script>
@@ -92,7 +105,7 @@ const ls={get(k){try{return localStorage.getItem(k)}catch{return null}},set(k,v)
 const url=new URL(location.href);
 let KEY=url.searchParams.get("k")||ls.get("qs_admin_key")||"";
 if(url.searchParams.get("k")){ls.set("qs_admin_key",KEY);url.searchParams.delete("k");history.replaceState(null,"",url)}
-let ORDERS=[],tab="active",q="";
+let ORDERS=[],tab="active",q="",VIEW="orders",STOCK=null;
 
 const PAY={unpaid:"Не оплачено",client_paid:"🧾 Чек получен — проверьте",cash:"💵 Наличными при получении",paid:"Оплачено"};
 const STATUS={new:"Новый",delivered:"У клиента",returned:"Возвращён",cancelled:"Отменён"};
@@ -127,12 +140,13 @@ async function load(silent){
   const r=await api("list",{key:KEY}).catch(()=>({ok:false,error:"Нет связи с сервером"}));
   if(b)b.disabled=false;
   if(!r.ok){if(/ключ/i.test(r.error)){ls.del("qs_admin_key");KEY="";return loginView(r.error)}if(!silent)toast(r.error);return}
+  const st=await api("stock",{}).catch(()=>null);if(st&&st.ok)STOCK=st.stock;
   ORDERS=r.orders;draw();
 }
 
 function card(o){
   const isDel=o.mode==="delivery";
-  const where=isDel?`🚚 <a href="https://2gis.kz/karaganda/search/${encodeURIComponent(o.address)}" target="_blank" rel="noopener">${esc(o.address)}</a>`:`📍 Самовывоз: ${esc(o.address)}`;
+  const where=o.mode==="manual"?"🤝 Выдано вручную":isDel?`🚚 <a href="https://2gis.kz/karaganda/search/${encodeURIComponent(o.address)}" target="_blank" rel="noopener">${esc(o.address)}</a>`:`📍 Самовывоз: ${esc(o.address)}`;
   const done=o.status==="returned"||o.status==="cancelled";
   const btns=[];
   if(o.status!=="cancelled"){
@@ -155,7 +169,7 @@ function card(o){
     </div>
     <div>
       <div class="cl">${esc(o.name)}</div>
-      <div class="mut"><a href="tel:+${esc(o.phone)}" style="color:var(--y)">+${esc(o.phone)}</a> · <a href="https://wa.me/${esc(o.phone)}" target="_blank" rel="noopener" style="color:#25D366">WhatsApp</a> · ИИН ${esc(o.iin)}</div>
+      <div class="mut">${o.phone?`<a href="tel:+${esc(o.phone)}" style="color:var(--y)">+${esc(o.phone)}</a> · <a href="https://wa.me/${esc(o.phone)}" target="_blank" rel="noopener" style="color:#25D366">WhatsApp</a>`:"без телефона"}${o.iin?" · ИИН "+esc(o.iin):""}</div>
       <div class="items">${o.items.map(i=>"• "+esc(itemName(i))).join("<br>")}</div>
       <div class="tot">${fmt(o.total)} <span class="mut" style="font:500 13px Inter">за ${o.days} сут.</span></div>
     </div>
@@ -163,7 +177,39 @@ function card(o){
   </div>`;
 }
 
+function drawStock(){
+  const rows=Object.keys(CATALOG).map(id=>{const s=(STOCK&&STOCK[id])||{qty:0,busy:0,free:0};return `<div class="sk${s.free?"":" no"}" data-id="${id}">
+    <div class="sn">${CATALOG[id][3]} ${esc(CATALOG[id][0])}<div class="mut">${fmt(CATALOG[id][1])}/сут · занято: ${s.busy}</div></div>
+    <div class="qt"><button data-q="-1" aria-label="Меньше">−</button><b>${s.qty}</b><button data-q="1" aria-label="Больше">+</button></div>
+    <span class="bd ${s.free?"paid":"unpaid"}">${s.free?"Бос: "+s.free:"Бос емес"}</span></div>`}).join("");
+  const freeN=STOCK?Object.values(STOCK).filter(s=>s.free>0).length:0;
+  $("#app").innerHTML=`<div class="bar" style="margin-top:20px;justify-content:space-between"><div><h2 style="font:900 22px Montserrat">📦 Склад</h2><span class="mut">Свободно позиций: ${freeN} из ${Object.keys(CATALOG).length}</span></div><button class="btn" id="man">➕ Выдать вручную</button></div>
+  <p class="mut" style="margin-bottom:12px">«−/+» — сколько штук есть всего. Заказы с сайта и ручная выдача занимают инструмент автоматически, «Возвращено» освобождает.</p>
+  <div class="list">${rows}</div>`;
+}
+function openManual(){
+  const opts=Object.keys(CATALOG).map(id=>{const f=STOCK&&STOCK[id]?STOCK[id].free:1;return `<label class="mo${f?"":" dis"}"><input type="checkbox" value="${id}"${f?"":" disabled"}> ${esc(CATALOG[id][0])} <span class="mut">${f?"бос: "+f:"бос емес"}</span></label>`}).join("");
+  $("#mfB").innerHTML=`<h3 style="font:900 20px Montserrat;margin-bottom:12px">➕ Выдать вручную</h3>
+    <div class="mol">${opts}</div>
+    <div class="mfg"><label>Суток<input id="mfD" type="number" min="1" max="60" value="1"></label>
+    <label>Оплата<select id="mfP"><option value="unpaid">Не оплачено</option><option value="cash">Наличными</option><option value="paid">Оплачено</option></select></label></div>
+    <label class="mfl">Имя клиента<input id="mfN" placeholder="Необязательно"></label>
+    <label class="mfl">Телефон<input id="mfT" type="tel" placeholder="Необязательно"></label>
+    <label class="mfl">Комментарий<input id="mfC" placeholder="Например: залог 10 000 ₸"></label>
+    <div class="ab"><button class="btn gh" style="color:#000;background:#eee" id="mfX">Отмена</button><button class="btn" id="mfS">Выдать</button></div>`;
+  $("#mf").classList.add("on");
+}
+async function submitManual(b){
+  const items=[...document.querySelectorAll("#mfB input[type=checkbox]:checked")].map(i=>i.value);
+  if(!items.length)return toast("Выберите инструмент");
+  b.disabled=true;
+  const r=await api("manualOrder",{key:KEY,items,days:$("#mfD").value,pay:$("#mfP").value,name:$("#mfN").value,phone:$("#mfT").value,comment:$("#mfC").value}).catch(()=>({ok:false,error:"Нет связи"}));
+  b.disabled=false;
+  if(!r.ok)return toast(r.error);
+  $("#mf").classList.remove("on");toast(`Выдано, заказ № ${r.order.id} ✓`);load();
+}
 function draw(){
+  if(VIEW==="stock")return drawStock();
   const cnt=k=>ORDERS.filter(TABS[k][1]).length;
   const rev=ORDERS.filter(o=>o.pay==="paid"&&o.status!=="cancelled").reduce((s,o)=>s+o.total,0);
   const todayN=ORDERS.filter(o=>o.status==="new"&&(o.pay==="paid"||o.pay==="cash")&&isToday(o.start)).length;
@@ -186,6 +232,10 @@ function draw(){
 }
 
 $("#app").addEventListener("click",async e=>{
+  if(e.target.id==="man")return openManual();
+  const qb=e.target.closest("[data-q]");if(qb){const id=qb.closest(".sk").dataset.id;const cur=STOCK&&STOCK[id]?STOCK[id].qty:0;const nq=Math.max(0,cur+ +qb.dataset.q);
+    qb.disabled=true;const r=await api("setStock",{key:KEY,id,qty:nq}).catch(()=>({ok:false,error:"Нет связи"}));qb.disabled=false;
+    if(!r.ok)return toast(r.error);STOCK=r.stock;draw();return}
   const t=e.target.closest("[data-t]");if(t){tab=t.dataset.t;draw();return}
   const b=e.target.closest("[data-a]");if(!b)return;
   const o=ORDERS.find(x=>x.id===b.closest(".o").dataset.id);
@@ -207,8 +257,10 @@ $("#app").addEventListener("click",async e=>{
 $("#mdX").onclick=()=>$("#md").classList.remove("on");
 $("#md").onclick=e=>{if(e.target.id==="md")$("#md").classList.remove("on")};
 $("#ref").onclick=()=>load();
+$("#vw").onclick=()=>{VIEW=VIEW==="stock"?"orders":"stock";$("#vw").textContent=VIEW==="stock"?"📋 Заказы":"📦 Склад";draw()};
+$("#mf").onclick=e=>{if(e.target.id==="mf"||e.target.id==="mfX")$("#mf").classList.remove("on");if(e.target.id==="mfS")submitManual(e.target)};
 $("#out").onclick=()=>{ls.del("qs_admin_key");KEY="";loginView()};
-setInterval(()=>{if(KEY&&document.visibilityState==="visible"&&!$("#md").classList.contains("on"))load(true)},30000);
+setInterval(()=>{if(KEY&&document.visibilityState==="visible"&&!$("#md").classList.contains("on")&&!$("#mf").classList.contains("on"))load(true)},30000);
 load();
 </script>
 </body>
