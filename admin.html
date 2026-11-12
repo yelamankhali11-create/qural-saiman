@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Заказы — Qural Saiman</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--y:#FFD400;--bg:#0B0B0C;--card:#18181B;--line:#2A2A2E;--tx:#F4F4F5;--mut:#A1A1AA;--g:#22c55e;--r:#ef4444;--o:#f59e0b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:15px/1.5 Inter,system-ui,sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+header{position:sticky;top:0;z-index:10;background:rgba(11,11,12,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;font:900 16px/1 Montserrat}
+.logo i{font-style:normal;color:var(--y)}
+.logo small{display:block;font:600 11px Inter;color:var(--mut);margin-top:3px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--y);color:#000;font:800 13px Montserrat;padding:10px 14px;border-radius:10px;border:0;cursor:pointer;transition:.15s;white-space:nowrap}
+.btn:hover{filter:brightness(1.1)}
+.btn.g{background:var(--g);color:#fff}.btn.r{background:transparent;color:var(--r);border:1px solid #3f1d1d}
+.btn.gh{background:var(--card);color:var(--tx);border:1px solid var(--line)}
+.btn:disabled{opacity:.5;cursor:wait}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:20px 0 14px}
+.st{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;cursor:pointer;transition:.15s}
+.st:hover{border-color:#3f3f46}
+.st b{display:block;font:900 28px Montserrat;line-height:1.1}
+.st span{font-size:12px;color:var(--mut)}
+.st.warn b{color:var(--o)}.st.bad b{color:var(--r)}.st.ok b{color:var(--g)}.st.y b{color:var(--y)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.chip{background:var(--card);border:1px solid var(--line);color:var(--tx);padding:8px 14px;border-radius:99px;font:700 12px Montserrat;cursor:pointer}
+.chip.on{background:var(--y);color:#000;border-color:var(--y)}
+.chip em{font-style:normal;opacity:.6;margin-left:4px}
+.search{margin-left:auto;background:var(--card);border:1px solid var(--line);color:var(--tx);border-radius:10px;padding:9px 12px;font:14px Inter;width:240px}
+.search:focus{outline:none;border-color:var(--y)}
+.list{display:grid;gap:12px;padding-bottom:60px}
+.o{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--line);border-radius:16px;padding:16px 18px;display:grid;grid-template-columns:1.25fr 1fr auto;gap:18px;align-items:start}
+.o.unpaid{border-left-color:var(--r)}.o.client_paid{border-left-color:var(--o)}.o.paid{border-left-color:var(--g)}
+.o.done{opacity:.55}
+.top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.no{font:900 18px Montserrat}
+.bd{font:800 11px Montserrat;padding:4px 9px;border-radius:99px;text-transform:uppercase;letter-spacing:.3px}
+.bd.unpaid{background:#3f1d1d;color:#fca5a5}.bd.client_paid{background:#422c06;color:#fcd34d}.bd.cash{background:#1e3a5f;color:#93c5fd}.o.cash{border-left-color:#3b82f6}
+.bd.paid{background:#0f3a22;color:#86efac}
+.bd.s{background:#27272a;color:var(--mut)}.bd.late{background:var(--r);color:#fff}
+.where{font:800 17px Montserrat;color:var(--y);line-height:1.3}
+.where a{border-bottom:1px dashed}
+.when{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px;font-size:14px}
+.when b{font-weight:700}
+.mut{color:var(--mut);font-size:13px}
+.cl{font-weight:700}
+.cl a{color:var(--y)}
+.items{margin-top:6px;font-size:14px;color:#d4d4d8}
+.tot{font:900 22px Montserrat;margin-top:8px}
+.acts{display:flex;flex-direction:column;gap:7px;min-width:170px}
+.empty{text-align:center;color:var(--mut);padding:60px 0}
+.login{max-width:360px;margin:16vh auto;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;text-align:center}
+.login input{width:100%;margin:16px 0 12px;background:#0f0f11;border:1px solid var(--line);color:var(--tx);border-radius:10px;padding:12px;font:16px Inter;text-align:center}
+.md{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:50;display:none;align-items:center;justify-content:center;padding:16px}
+.md.on{display:flex}
+.md .box{background:#fff;color:#111;border-radius:16px;max-width:680px;width:100%;max-height:90vh;overflow:auto;padding:28px}
+.md #mdR img{max-width:100%;border-radius:10px;display:block;margin:0 auto}.md #mdR iframe{width:100%;height:70vh;border:0}
+.md pre{white-space:pre-wrap;font:14px/1.6 Georgia,serif}
+.md .sig{margin-top:18px;padding-top:12px;border-top:1px solid #ddd;font:13px Inter;color:#444}
+.md .ab{display:flex;gap:8px;margin-top:18px;justify-content:flex-end}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#fff;color:#000;padding:10px 16px;border-radius:10px;font:700 14px Montserrat;z-index:60;opacity:0;transition:.3s;pointer-events:none}
+.toast.on{opacity:1}
+.demo{background:rgba(255,212,0,.1);border:1px dashed var(--y);color:var(--y);border-radius:10px;padding:8px 12px;font-size:13px;margin-top:14px}
+@media(max-width:860px){.o{grid-template-columns:1fr}.acts{flex-direction:row;flex-wrap:wrap;min-width:0}.acts .btn{flex:1 1 140px}.stats{grid-template-columns:repeat(3,1fr)}.search{width:100%;margin-left:0}}
+@media(max-width:480px){.stats{grid-template-columns:1fr 1fr}}
+@media print{body *{visibility:hidden}.md,.md *{visibility:visible}.md{position:absolute;background:none}.md .ab{display:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+  <div class="logo"><svg viewBox="0 0 100 100" width="34" height="34"><path d="M50 4 90 27v46L50 96 10 73V27z" fill="none" stroke="#FFD400" stroke-width="10"/></svg>
+    <div>QURAL <i>SAIMAN</i><small>Панель ответственного</small></div></div>
+  <div style="display:flex;gap:8px"><button class="btn gh" id="ref">↻ Обновить</button><button class="btn gh" id="out" title="Выйти">⎋</button></div>
+</div></header>
+
+<main class="wrap" id="app"></main>
+
+<div class="md" id="md"><div class="box"><div id="mdR"></div><pre id="mdT"></pre><div class="sig" id="mdS"></div>
+  <div class="ab"><button class="btn gh" style="color:#000;background:#eee" onclick="print()">🖨 Печать</button><button class="btn" id="mdX">Закрыть</button></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const ls={get(k){try{return localStorage.getItem(k)}catch{return null}},set(k,v){try{localStorage.setItem(k,v)}catch{}},del(k){try{localStorage.removeItem(k)}catch{}}};
+const url=new URL(location.href);
+let KEY=url.searchParams.get("k")||ls.get("qs_admin_key")||"";
+if(url.searchParams.get("k")){ls.set("qs_admin_key",KEY);url.searchParams.delete("k");history.replaceState(null,"",url)}
+let ORDERS=[],tab="active",q="";
+
+const PAY={unpaid:"Не оплачено",client_paid:"🧾 Чек получен — проверьте",cash:"💵 Наличными при получении",paid:"Оплачено"};
+const STATUS={new:"Новый",delivered:"У клиента",returned:"Возвращён",cancelled:"Отменён"};
+const now=()=>Date.now();
+const isToday=d=>new Date(d).toDateString()===new Date().toDateString();
+const late=o=>o.status==="delivered"&&new Date(o.end).getTime()<now();
+const TABS={
+  active:["Активные",o=>o.status==="new"||o.status==="delivered"],
+  check:["Проверить чек",o=>o.pay==="client_paid"&&o.status!=="cancelled"],
+  unpaid:["Не оплачено",o=>o.pay==="unpaid"&&o.status==="new"],
+  todeliver:["К выдаче",o=>(o.pay==="paid"||o.pay==="cash")&&o.status==="new"],
+  cash:["Наличные",o=>o.pay==="cash"&&o.status!=="cancelled"],
+  out:["У клиентов",o=>o.status==="delivered"],
+  closed:["Закрытые",o=>o.status==="returned"||o.status==="cancelled"],
+  all:["Все",()=>true],
+};
+
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove("on"),1800)}
+
+function loginView(msg){
+  $("#app").innerHTML=`<div class="login"><div style="font-size:40px">🔐</div><h2 style="font:900 20px Montserrat;margin-top:8px">Вход для ответственного</h2>
+  <input id="k" type="password" placeholder="Ключ доступа" autofocus><button class="btn" style="width:100%" id="go">Войти</button>
+  <p class="mut" style="margin-top:10px;color:${msg?"var(--r)":""}">${msg||"Ключ выдаёт владелец"}</p>
+  ${!QS.API_URL?'<div class="demo">Демо-режим: ключ <b>demo</b></div>':""}</div>`;
+  const go=()=>{KEY=$("#k").value.trim();ls.set("qs_admin_key",KEY);load()};
+  $("#go").onclick=go;$("#k").onkeydown=e=>{if(e.key==="Enter")go()};
+}
+
+async function load(silent){
+  if(!KEY)return loginView();
+  const b=$("#ref");if(b)b.disabled=true;
+  const r=await api("list",{key:KEY}).catch(()=>({ok:false,error:"Нет связи с сервером"}));
+  if(b)b.disabled=false;
+  if(!r.ok){if(/ключ/i.test(r.error)){ls.del("qs_admin_key");KEY="";return loginView(r.error)}if(!silent)toast(r.error);return}
+  ORDERS=r.orders;draw();
+}
+
+function card(o){
+  const isDel=o.mode==="delivery";
+  const where=isDel?`🚚 <a href="https://2gis.kz/karaganda/search/${encodeURIComponent(o.address)}" target="_blank" rel="noopener">${esc(o.address)}</a>`:`📍 Самовывоз: ${esc(o.address)}`;
+  const done=o.status==="returned"||o.status==="cancelled";
+  const btns=[];
+  if(o.status!=="cancelled"){
+    if(o.pay!=="paid")btns.push(`<button class="btn g" data-a="pay" data-v="paid">${o.pay==="cash"?"💵 Наличные получены":"✓ Оплата получена"}</button>`);
+    else btns.push(`<button class="btn gh" data-a="pay" data-v="unpaid">Снять оплату</button>`);
+    if(o.status==="new")btns.push(`<button class="btn" data-a="status" data-v="delivered"${o.pay!=="paid"&&o.pay!=="cash"?' title="Сначала подтвердите оплату"':""}>${isDel?"🚚 Доставлено":"🤝 Выдано"}</button>`);
+    if(o.status==="delivered")btns.push(`<button class="btn" data-a="status" data-v="returned">↩ Возвращено</button>`);
+  }
+  if(o.receipt)btns.unshift(`<button class="btn gh" data-a="receipt" style="border-color:var(--o);color:#fcd34d">🧾 Открыть чек</button>`);
+  btns.push(`<button class="btn gh" data-a="contract">📄 Договор</button>`);
+  if(o.status==="new")btns.push(`<button class="btn r" data-a="status" data-v="cancelled">Отменить</button>`);
+  return `<div class="o ${o.pay}${done?" done":""}" data-id="${esc(o.id)}">
+    <div>
+      <div class="top"><span class="no">№ ${esc(o.id)}</span>
+        <span class="bd ${o.pay}">${PAY[o.pay]||o.pay}</span><span class="bd s">${STATUS[o.status]||o.status}</span>
+        ${late(o)?'<span class="bd late">Просрочка возврата</span>':""}</div>
+      <div class="where">${where}</div>
+      <div class="when"><span>🕐 ${isDel?"Привезти":"Выдать"}: <b>${fmtDate(o.start)}</b>${isToday(o.start)?' <span class="bd" style="background:var(--y);color:#000">сегодня</span>':""}</span><span>↩ Возврат: <b>${fmtDate(o.end)}</b></span></div>
+      ${o.comment?`<div class="mut" style="margin-top:6px">💬 ${esc(o.comment)}</div>`:""}
+    </div>
+    <div>
+      <div class="cl">${esc(o.name)}</div>
+      <div class="mut"><a href="tel:+${esc(o.phone)}" style="color:var(--y)">+${esc(o.phone)}</a> · <a href="https://wa.me/${esc(o.phone)}" target="_blank" rel="noopener" style="color:#25D366">WhatsApp</a> · ИИН ${esc(o.iin)}</div>
+      <div class="items">${o.items.map(i=>"• "+esc(itemName(i))).join("<br>")}</div>
+      <div class="tot">${fmt(o.total)} <span class="mut" style="font:500 13px Inter">за ${o.days} сут.</span></div>
+    </div>
+    <div class="acts">${btns.join("")}</div>
+  </div>`;
+}
+
+function draw(){
+  const cnt=k=>ORDERS.filter(TABS[k][1]).length;
+  const rev=ORDERS.filter(o=>o.pay==="paid"&&o.status!=="cancelled").reduce((s,o)=>s+o.total,0);
+  const todayN=ORDERS.filter(o=>o.status==="new"&&(o.pay==="paid"||o.pay==="cash")&&isToday(o.start)).length;
+  const lateN=ORDERS.filter(late).length;
+  const shown=ORDERS.filter(TABS[tab][1]).filter(o=>!q||[o.id,o.name,o.phone,o.address].join(" ").toLowerCase().includes(q))
+    .sort((a,b)=>tab==="closed"||tab==="all"?new Date(b.created)-new Date(a.created):new Date(a.start)-new Date(b.start));
+  $("#app").innerHTML=`
+  ${!QS.API_URL?'<div class="demo">Демо-режим: заказы хранятся только в этом браузере. После подключения Google Sheet заказы будут общими.</div>':""}
+  <div class="stats">
+    <div class="st warn" data-t="check"><b>${cnt("check")}</b><span>Проверить чек</span></div>
+    <div class="st bad" data-t="unpaid"><b>${cnt("unpaid")}</b><span>Не оплачено</span></div>
+    <div class="st y" data-t="todeliver"><b>${cnt("todeliver")}</b><span>К выдаче${todayN?` · сегодня ${todayN}`:""}</span></div>
+    <div class="st ${lateN?"bad":""}" data-t="out"><b>${cnt("out")}</b><span>У клиентов${lateN?` · просрочка ${lateN}`:""}</span></div>
+    <div class="st ok" data-t="all"><b>${fmt(rev)}</b><span>Оплачено всего</span></div>
+  </div>
+  <div class="bar">${Object.entries(TABS).map(([k,[n]])=>`<button class="chip${k===tab?" on":""}" data-t="${k}">${n}<em>${cnt(k)}</em></button>`).join("")}
+    <input class="search" id="q" placeholder="🔍 №, имя, телефон, адрес" value="${esc(q)}"></div>
+  <div class="list">${shown.map(card).join("")||'<div class="empty">Здесь пока пусто</div>'}</div>`;
+  const qi=$("#q");qi.oninput=e=>{q=e.target.value.toLowerCase();const p=qi.selectionStart;draw();const n=$("#q");n.focus();n.setSelectionRange(p,p)};
+}
+
+$("#app").addEventListener("click",async e=>{
+  const t=e.target.closest("[data-t]");if(t){tab=t.dataset.t;draw();return}
+  const b=e.target.closest("[data-a]");if(!b)return;
+  const o=ORDERS.find(x=>x.id===b.closest(".o").dataset.id);
+  if(b.dataset.a==="receipt"){
+    b.disabled=true;const r=await api("receipt",{key:KEY,id:o.id}).catch(()=>({ok:false,error:"Нет связи"}));b.disabled=false;
+    if(!r.ok)return toast(r.error);
+    const bin=atob(r.data),u8=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);
+    const url=URL.createObjectURL(new Blob([u8],{type:r.mime}));
+    $("#mdR").innerHTML=r.mime==="application/pdf"?`<iframe src="${url}"></iframe>`:`<img src="${url}" alt="Чек">`;
+    $("#mdT").textContent="";$("#mdS").textContent=`Чек по заказу № ${o.id} · сумма ${fmt(o.total)} · проверьте поступление в Kaspi`;$("#md").classList.add("on");return}
+  if(b.dataset.a==="contract"){$("#mdR").innerHTML="";$("#mdT").textContent=o.contract;$("#mdS").textContent=`Подписано SMS-кодом на +${o.phone}: ${fmtDate(o.signedAt)}`;$("#md").classList.add("on");return}
+  if(b.dataset.v==="cancelled"&&!confirm(`Отменить заказ № ${o.id}?`))return;
+  if(b.dataset.v==="delivered"&&o.pay!=="paid"&&o.pay!=="cash"&&!confirm("Оплата ещё не подтверждена. Всё равно отметить выдачу?"))return;
+  b.disabled=true;
+  const r=await api("update",{key:KEY,id:o.id,[b.dataset.a]:b.dataset.v}).catch(()=>({ok:false,error:"Нет связи"}));
+  if(!r.ok){b.disabled=false;return toast(r.error)}
+  Object.assign(o,r.order);draw();toast("Сохранено ✓");
+});
+$("#mdX").onclick=()=>$("#md").classList.remove("on");
+$("#md").onclick=e=>{if(e.target.id==="md")$("#md").classList.remove("on")};
+$("#ref").onclick=()=>load();
+$("#out").onclick=()=>{ls.del("qs_admin_key");KEY="";loginView()};
+setInterval(()=>{if(KEY&&document.visibilityState==="visible"&&!$("#md").classList.contains("on"))load(true)},30000);
+load();
+</script>
+</body>
+</html>

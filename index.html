@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qural Saiman — аренда инструментов в Караганде</title>
+<meta name="description" content="Аренда строительных инструментов в Караганде и Сарани. Доставка по городу, без выходных, комбо-наборы со скидкой 10%.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --y:#FFD400; --y2:#FFB800; --bg:#0B0B0C; --bg2:#141416; --card:#18181B; --line:#2A2A2E;
+  --tx:#F4F4F5; --mut:#A1A1AA; --r:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:Inter,system-ui,sans-serif;line-height:1.5;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+h1,h2,h3,.m{font-family:Montserrat,sans-serif}
+h2{font-size:clamp(28px,4.4vw,46px);font-weight:900;text-transform:uppercase;line-height:1.05;letter-spacing:-.5px}
+h2 span{color:var(--y)}
+.kicker{display:inline-block;font:700 13px Montserrat;letter-spacing:3px;text-transform:uppercase;color:var(--y);margin-bottom:12px}
+section{padding:90px 0;position:relative}
+
+header{position:fixed;inset:0 0 auto;z-index:50;transition:.3s;border-bottom:1px solid transparent}
+header.s{background:rgba(11,11,12,.88);backdrop-filter:blur(14px);border-color:var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:20px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo svg{width:40px;height:40px}
+.logo b{font:900 17px/0.95 Montserrat;display:block}
+.logo b i{font-style:normal;color:var(--y)}
+.menu{display:flex;gap:28px;font:600 14px Montserrat}
+.menu a{color:var(--mut);transition:.2s}.menu a:hover{color:var(--y)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--y);color:#000;font:800 15px Montserrat;padding:15px 26px;border-radius:12px;border:0;cursor:pointer;transition:.2s;text-transform:uppercase;letter-spacing:.3px}
+.btn:hover{background:#fff;transform:translateY(-2px);box-shadow:0 10px 30px rgba(255,212,0,.3)}
+.btn.ghost{background:transparent;color:var(--tx);border:2px solid var(--line)}
+.btn.ghost:hover{border-color:var(--y);color:var(--y);background:transparent}
+.btn svg{width:20px;height:20px}
+.nav .btn{padding:11px 18px;font-size:13px}
+
+.hero{min-height:100vh;display:flex;align-items:center;padding:110px 0 60px;overflow:hidden;
+  background:radial-gradient(900px 500px at 85% 30%,rgba(255,212,0,.13),transparent 60%),var(--bg)}
+.stripes{position:absolute;width:520px;height:520px;pointer-events:none;
+  background:repeating-linear-gradient(-45deg,var(--y) 0 26px,transparent 26px 52px);opacity:.9}
+.stripes.sa{bottom:-400px;left:-400px;opacity:.5}
+html,body{overflow-x:clip}
+.stripes.sb{bottom:-380px;right:-380px}
+.hero-grid{width:100%;display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center;position:relative}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,212,0,.1);border:1px solid rgba(255,212,0,.35);color:var(--y);padding:8px 14px;border-radius:99px;font:700 13px Montserrat;margin-bottom:24px}
+.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.2);animation:p 1.6s infinite}
+@keyframes p{50%{box-shadow:0 0 0 8px rgba(34,197,94,0)}}
+.hero h1{font-size:clamp(40px,6.6vw,84px);font-weight:900;line-height:.95;text-transform:uppercase;letter-spacing:-1.5px}
+.hero h1 em{font-style:normal;color:var(--y);display:block}
+.hero p.lead{font-size:clamp(16px,1.6vw,19px);color:var(--mut);margin:24px 0 34px;max-width:540px}
+.hero .cta{display:flex;gap:14px;flex-wrap:wrap}
+.stats{display:flex;gap:34px;margin-top:46px;flex-wrap:wrap}
+.stats div b{font:900 34px Montserrat;color:var(--y);display:block;line-height:1}
+.stats div span{font-size:13px;color:var(--mut)}
+.hero-img{position:relative;cursor:zoom-in}
+.hero-img .main{border-radius:24px;overflow:hidden;border:2px solid var(--line);transform:rotate(2deg);box-shadow:0 40px 80px rgba(0,0,0,.6)}
+.hero-img .main img{aspect-ratio:4/5;object-fit:cover;object-position:top}
+.float{position:absolute;background:var(--y);color:#000;border-radius:16px;padding:14px 18px;font:800 14px Montserrat;box-shadow:0 20px 40px rgba(0,0,0,.5);animation:f 4s ease-in-out infinite}
+.float b{font-size:26px;display:block;line-height:1}
+.float.f1{left:-30px;bottom:60px;transform:rotate(-5deg)}
+.float.f2{right:-14px;top:30px;background:#fff;animation-delay:-2s}
+@keyframes f{50%{translate:0 -10px}}
+
+.ticker{background:var(--y);color:#000;overflow:hidden;padding:16px 0;transform:rotate(-1.2deg);margin:0 -20px;position:relative;z-index:2}
+.ticker .t{display:flex;gap:40px;white-space:nowrap;animation:tk 40s linear infinite;width:max-content;font:900 20px Montserrat;text-transform:uppercase}
+.ticker .t span::after{content:"✦";margin-left:40px}
+@keyframes tk{to{transform:translateX(-50%)}}
+
+.feat{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px}
+.fc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:28px 24px;transition:.3s}
+.fc:hover{border-color:var(--y);transform:translateY(-4px)}
+.ic{width:56px;height:56px;border-radius:50%;border:2px solid var(--y);display:grid;place-items:center;color:var(--y);margin-bottom:18px}
+.ic svg{width:26px;height:26px}
+.fc h3{font-size:18px;font-weight:800;margin-bottom:6px}
+.fc p{color:var(--mut);font-size:14px}
+
+.cat-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:34px 0 26px}
+.chip{background:var(--card);border:1px solid var(--line);color:var(--tx);padding:10px 18px;border-radius:99px;font:700 13px Montserrat;cursor:pointer;transition:.2s}
+.chip:hover{border-color:var(--y)}
+.chip.on{background:var(--y);color:#000;border-color:var(--y)}
+.search{background:var(--card);border:1px solid var(--line);color:var(--tx);padding:13px 18px;border-radius:12px;font:500 15px Inter;width:280px;max-width:100%}
+.search:focus{outline:none;border-color:var(--y)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:14px;transition:.25s;position:relative;overflow:hidden;cursor:pointer}
+.item:hover{border-color:#3f3f46;transform:translateY(-3px)}
+.item.in{border-color:var(--y);box-shadow:0 0 0 1px var(--y) inset}
+.item .emo{width:46px;height:46px;border-radius:12px;background:rgba(255,212,0,.1);display:grid;place-items:center;font-size:24px}
+.item .tag{font:700 11px Montserrat;color:var(--mut);text-transform:uppercase;letter-spacing:1px}
+.item h3{font-size:17px;font-weight:700;line-height:1.25}
+.item .bot{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+.price{font:900 22px Montserrat;color:var(--y)}
+.price small{font:500 12px Inter;color:var(--mut);display:block}
+.add{width:44px;height:44px;border-radius:12px;border:2px solid var(--line);background:transparent;color:var(--tx);font-size:22px;cursor:pointer;transition:.2s;display:grid;place-items:center}
+.item:hover .add{border-color:var(--y);color:var(--y)}
+.item.in .add{background:var(--y);color:#000;border-color:var(--y)}
+.hit{position:absolute;top:0;right:0;background:var(--y);color:#000;font:800 10px Montserrat;padding:5px 10px;border-bottom-left-radius:10px;text-transform:uppercase}
+
+.combos{background:var(--bg2);overflow:hidden}
+.combo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;margin-top:44px}
+.cb{background:linear-gradient(160deg,#1d1d20,#121214);border:2px solid rgba(255,212,0,.45);border-radius:20px;padding:24px;position:relative;transition:.3s}
+.cb:hover{border-color:var(--y);transform:translateY(-4px);box-shadow:0 20px 40px rgba(255,212,0,.08)}
+.cb h3{font:900 19px Montserrat;text-transform:uppercase;margin-bottom:14px}
+.cb h3 b{color:var(--y)}
+.cb .row{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.cb .old{color:var(--mut);text-decoration:line-through;font-size:14px}
+.cb .new{font:900 32px Montserrat;color:var(--y);line-height:1}
+.cb .save{background:var(--y);color:#000;font:800 13px Montserrat;padding:8px 12px;border-radius:10px;transform:rotate(-4deg)}
+.cb .btn{width:100%;margin-top:18px;padding:13px}
+.sale{position:absolute;top:70px;right:-60px;font:900 220px/1 Montserrat;color:rgba(255,212,0,.05);pointer-events:none}
+
+.spot{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-top:44px}
+.sp{border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--card);cursor:zoom-in;transition:.3s;position:relative}
+.sp:hover{transform:translateY(-5px);border-color:var(--y)}
+.sp img{aspect-ratio:2/3;object-fit:cover;object-position:top;transition:.5s}
+.sp:hover img{transform:scale(1.04)}
+.sp .cap{position:absolute;inset:auto 0 0;padding:50px 18px 18px;background:linear-gradient(transparent,rgba(0,0,0,.92));display:flex;justify-content:space-between;align-items:end;gap:10px}
+.sp .cap b{font:800 17px Montserrat}
+.sp .cap span{background:var(--y);color:#000;font:900 15px Montserrat;padding:6px 10px;border-radius:8px;white-space:nowrap}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px;counter-reset:s}
+.st{padding:28px 22px;border-top:3px solid var(--y);background:var(--card);border-radius:0 0 var(--r) var(--r)}
+.st::before{counter-increment:s;content:"0" counter(s);font:900 46px Montserrat;color:var(--y);display:block;line-height:1;margin-bottom:12px}
+.st h3{font-size:18px;font-weight:800;margin-bottom:6px}
+.st p{color:var(--mut);font-size:14px}
+
+.br{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:44px}
+.b{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:32px;position:relative;overflow:hidden}
+.b.new{border-color:var(--y)}
+.b .lbl{position:absolute;top:22px;right:22px;background:var(--y);color:#000;font:800 11px Montserrat;padding:6px 12px;border-radius:99px;text-transform:uppercase}
+.b h3{font:900 30px Montserrat;margin:10px 0 6px}
+.b p{color:var(--mut)}
+.b .addr{font:800 20px Montserrat;color:var(--y);margin-top:16px}
+.b .btn{margin-top:22px}
+
+.final{background:var(--y);color:#000;border-radius:28px;padding:60px 50px;display:grid;grid-template-columns:1.3fr 1fr;gap:30px;align-items:center;position:relative;overflow:hidden}
+.final h2 span{color:#000}
+.final p{font-size:17px;margin-top:14px;max-width:500px;font-weight:500}
+.final .btn{background:#000;color:var(--y)}
+.final .btn:hover{background:#222;color:#fff}
+.final .btns{display:flex;flex-direction:column;gap:12px}
+.final .btn.ghost{background:transparent;border-color:#000;color:#000}
+
+footer{padding:40px 0 120px;color:var(--mut);font-size:14px;border-top:1px solid var(--line);margin-top:90px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+
+.cart{position:fixed;left:50%;bottom:20px;transform:translate(-50%,150%);z-index:60;background:#fff;color:#000;border-radius:18px;padding:12px 12px 12px 22px;display:flex;align-items:center;gap:14px;box-shadow:0 20px 50px rgba(0,0,0,.6);transition:.4s cubic-bezier(.2,.9,.3,1.2);width:min(560px,calc(100% - 32px))}
+.cart.on{transform:translate(-50%,0)}
+.cart .inf{flex:1;min-width:0}
+.cart .inf b{font:900 20px Montserrat;display:block;line-height:1.1}
+.cart .inf span{font-size:13px;color:#555;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cart .btn{padding:13px 18px;font-size:13px;background:#25D366;color:#fff}
+.cart .x{background:none;border:0;font-size:20px;cursor:pointer;color:#888;padding:4px}
+.wa-fab{position:fixed;right:20px;bottom:20px;z-index:55;width:60px;height:60px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 10px 30px rgba(37,211,102,.45);transition:.3s}
+.wa-fab:hover{transform:scale(1.08)}
+.wa-fab svg{width:32px;height:32px;fill:#fff}
+body.has-cart .wa-fab{opacity:0;pointer-events:none}
+
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:100;display:none;place-items:center;padding:20px;cursor:zoom-out}
+.lb.on{display:grid}
+.lb img{max-height:92vh;border-radius:14px}
+
+.lang{background:transparent;border:2px solid var(--line);color:var(--tx);font:800 12px Montserrat;padding:9px 11px;border-radius:10px;cursor:pointer;letter-spacing:.5px}
+.lang:hover{border-color:var(--y);color:var(--y)}
+.pay{background:linear-gradient(135deg,#F14635,#c62c1d);border-radius:20px;padding:20px;margin:6px 0 14px;color:#fff}
+.pay .pl{font:700 12px Montserrat;text-transform:uppercase;letter-spacing:1px;opacity:.85}
+.pay .pn{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font:900 26px Montserrat;margin-top:4px}
+.pay .pa{font:900 36px Montserrat;line-height:1.1}
+.cpb{background:#fff;color:#c62c1d;border:0;border-radius:10px;padding:9px 14px;font:800 13px Montserrat;cursor:pointer}
+.seg2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.seg2 button{background:var(--card);border:1px solid var(--line);color:var(--tx);border-radius:12px;padding:12px 6px;font:800 13px Montserrat;cursor:pointer}
+.seg2 button.on{background:var(--y);color:#000;border-color:var(--y)}
+.drop{display:block;border:2px dashed #3f3f46;border-radius:16px;padding:22px 14px;text-align:center;cursor:pointer;font:700 15px Montserrat;color:var(--tx);margin-bottom:12px;transition:.2s}
+.drop:hover{border-color:var(--y)}
+.drop.has{border-color:#22c55e;border-style:solid;background:rgba(34,197,94,.08)}
+.drop input{display:none}
+/* checkout */
+.co{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);display:none;overflow-y:auto;padding:24px 14px}
+.co.on{display:block}
+.sheet{max-width:620px;margin:0 auto;background:#121214;border:1px solid var(--line);border-radius:24px;padding:26px;position:relative;animation:up .35s cubic-bezier(.2,.9,.3,1.1)}
+@keyframes up{from{opacity:0;transform:translateY(30px)}}
+.sheet .close{position:absolute;top:16px;right:16px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--tx);font-size:18px;cursor:pointer}
+.stp{display:flex;gap:6px;margin:4px 46px 22px 0}
+.stp i{flex:1;height:5px;border-radius:9px;background:var(--line);transition:.3s}
+.stp i.on{background:var(--y)}
+.sheet h3.t{font:900 24px Montserrat;text-transform:uppercase;margin-bottom:4px}
+.sheet .sub{color:var(--mut);font-size:14px;margin-bottom:20px}
+.fld{display:block;margin-bottom:14px}
+.fld>span{display:block;font:700 12px Montserrat;color:var(--mut);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.fld input,.fld select,.fld textarea{width:100%;background:var(--card);border:1px solid var(--line);color:var(--tx);border-radius:12px;padding:13px 14px;font:500 16px Inter}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--y)}
+.fld input.bad{border-color:#ef4444}
+.fld small{display:block;color:#ef4444;font-size:12px;margin-top:4px;min-height:0}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.seg label{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center;cursor:pointer;font:700 13px Montserrat;transition:.2s}
+.seg input{display:none}
+.seg label:has(input:checked){background:var(--y);color:#000;border-color:var(--y)}
+.stepper{display:flex;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.stepper button{width:48px;height:48px;background:none;border:0;color:var(--y);font:900 22px Montserrat;cursor:pointer}
+.stepper input{border:0!important;text-align:center;font:800 18px Montserrat!important;background:none!important;padding:0!important}
+.sum{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:6px 0 18px;font-size:14px}
+.sum .l{display:flex;justify-content:space-between;gap:10px;padding:5px 0;color:var(--mut)}
+.sum .l b{color:var(--tx);font-weight:600;white-space:nowrap}
+.sum .l .rm{background:none;border:0;color:#71717a;cursor:pointer;margin-left:6px}
+.sum .tot{display:flex;justify-content:space-between;align-items:end;border-top:1px dashed var(--line);margin-top:10px;padding-top:12px}
+.sum .tot b{font:900 28px Montserrat;color:var(--y)}
+.contract{background:#fff;color:#111;border-radius:14px;padding:18px;font:13px/1.55 Georgia,serif;white-space:pre-wrap;max-height:280px;overflow-y:auto;margin-bottom:14px}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:14px;margin-bottom:16px;cursor:pointer}
+.chk input{width:20px;height:20px;accent-color:var(--y);flex-shrink:0;margin-top:1px}
+.otp{font:900 30px Montserrat!important;letter-spacing:14px;text-align:center}
+.full{width:100%}
+.note{font-size:13px;color:var(--mut);margin-top:10px;text-align:center}
+.demo{background:rgba(255,212,0,.1);border:1px dashed var(--y);color:var(--y);border-radius:12px;padding:10px 12px;font-size:13px;margin-bottom:12px}
+.err{color:#ef4444;font-size:14px;margin:-4px 0 12px;min-height:1em}
+.qr{background:#fff;border-radius:20px;padding:18px;text-align:center;color:#000;margin:10px 0 16px}
+.qr img{width:240px;max-width:100%;margin:0 auto;border-radius:10px}
+.qr .ph{width:240px;height:240px;margin:0 auto;border:3px dashed #d4d4d8;border-radius:14px;display:grid;place-items:center;color:#71717a;font:700 14px Montserrat;padding:20px}
+.qr .amt{font:900 34px Montserrat;margin-top:10px}
+.qr .red{display:inline-block;background:#F14635;color:#fff;font:800 13px Montserrat;padding:6px 12px;border-radius:8px;margin-top:6px}
+.ok-ic{width:84px;height:84px;border-radius:50%;background:#22c55e;display:grid;place-items:center;margin:6px auto 16px;font-size:42px;color:#fff;animation:pop .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{from{transform:scale(0)}}
+.cb .btn{cursor:pointer}
+@media(max-width:560px){.sheet{padding:20px 16px}.r2{grid-template-columns:1fr}.seg label{font-size:12px;padding:11px 4px}}
+
+.rv{opacity:0;transform:translateY(30px);transition:.7s cubic-bezier(.2,.7,.2,1)}
+.rv.v{opacity:1;transform:none}
+
+@media(max-width:960px){
+  .hero-grid,.final,.br{grid-template-columns:1fr}
+  .hero-img{max-width:420px;margin:20px auto 0}
+  .feat,.steps{grid-template-columns:1fr 1fr}
+  .menu{display:none}
+  .final{padding:40px 26px}
+}
+@media(max-width:560px){
+  section{padding:64px 0}
+  .feat,.steps,.combo-grid{grid-template-columns:1fr}
+  .float.f1{left:-6px}.float.f2{right:-4px}
+  .nav .btn span{display:none}
+  .stats{gap:22px}
+  .search{width:100%}
+  .cart .btn span{display:none}
+  .stripes{width:300px;height:300px}.stripes.sa{display:none}.stripes.sb{bottom:-220px;right:-220px}
+}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="#" class="logo">
+      <svg viewBox="0 0 100 100"><path d="M50 4 90 27v46L50 96 10 73V27z" fill="none" stroke="#FFD400" stroke-width="10"/><path d="M34 34h28v12h8v6h-8v4h-6l-2 14h-9l2-14h-5l-8-8z" fill="#fff"/></svg>
+      <b>QURAL<br><i>SAIMAN</i></b>
+    </a>
+    <nav class="menu">
+      <a href="#catalog">Каталог</a><a href="#combo">Комбо −10%</a><a href="#how">Как арендовать</a><a href="#branches">Филиалы</a>
+    </nav>
+    <div style="display:flex;gap:8px;align-items:center"><button class="lang" id="lang" aria-label="Тіл / Язык">ҚАЗ</button>
+    <a class="btn tel" href="#">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg><span>Позвонить</span>
+    </a></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="stripes sa"></div><div class="stripes sb"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="badge"><i class="dot"></i> Работаем без выходных · 24/7</div>
+      <h1>Аренда<br>инструментов<em>в Караганде</em></h1>
+      <p class="lead">Перфораторы, болгарки, краскопульты, вышки-туры и ещё 15+ позиций в отличном состоянии. Привезём на объект, а комбо-наборы обойдутся на 10% дешевле.</p>
+      <div class="cta">
+        <a href="#catalog" class="btn">Выбрать инструмент →</a>
+        <a href="#" class="btn ghost wa" data-msg="Здравствуйте! Подскажите, что есть в наличии?">Написать в WhatsApp</a>
+      </div>
+      <div class="stats">
+        <div><b>от 3 000 ₸</b><span>в сутки</span></div>
+        <div><b>2</b><span>филиала: Караганда и Сарань</span></div>
+        <div><b>−10%</b><span>на комбо</span></div>
+      </div>
+    </div>
+    <div class="hero-img">
+      <div class="main"><img src="img/price.jpg" alt="Прайс Qural Saiman"></div>
+      <div class="float f1"><b>24/7</b>без выходных</div>
+      <div class="float f2">🚚 Доставка<br>по городу</div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker"><div class="t" id="tk"></div></div>
+
+<section>
+  <div class="wrap">
+    <div class="rv"><span class="kicker">Почему мы</span><h2>Ваш проект <span>в надёжных руках</span></h2></div>
+    <div class="feat">
+      <div class="fc rv"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Проверенный инструмент</h3><p>Каждый аппарат проверяем перед выдачей, всё в отличном состоянии.</p></div>
+      <div class="fc rv"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><h3>Доставка по городу</h3><p>Привезём инструмент прямо на объект в Караганде.</p></div>
+      <div class="fc rv"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><h3>Без выходных</h3><p>Работаем 24/7, ночью по предварительной договорённости.</p></div>
+      <div class="fc rv"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><h3>Гибкие условия</h3><p>Берите на день или на неделю, как удобно под задачу.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="catalog" style="padding-top:20px">
+  <div class="wrap">
+    <div class="cat-head rv">
+      <div><span class="kicker">Каталог и цены</span><h2>Нужный инструмент <span>для ваших задач</span></h2></div>
+      <input class="search" id="q" placeholder="🔍 Найти инструмент…">
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="grid"></div>
+    <p style="color:var(--mut);font-size:13px;margin-top:18px">Цены указаны за сутки. Нажмите на карточку, чтобы добавить в заказ, затем оформите аренду онлайн: срок, договор, оплата Kaspi.</p>
+  </div>
+</section>
+
+<section id="combo" class="combos">
+  <div class="sale m">10%</div>
+  <div class="wrap">
+    <div class="rv"><span class="kicker">Комбо-инструмент</span><h2>Больше возможностей, <span>ниже цена</span></h2>
+    <p style="color:var(--mut);margin-top:14px;max-width:560px">Удобные комплекты на 10% выгоднее, чем брать инструменты по отдельности.</p></div>
+    <div class="combo-grid" id="combos"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="rv"><span class="kicker">Хиты аренды</span><h2>Профессиональный <span>результат</span></h2></div>
+    <div class="spot" id="spot"></div>
+  </div>
+</section>
+
+<section id="how" style="padding-top:20px">
+  <div class="wrap">
+    <div class="rv"><span class="kicker">Как арендовать</span><h2>4 шага <span>до работы</span></h2></div>
+    <div class="steps">
+      <div class="st rv"><h3>Выберите</h3><p>Соберите инструменты, укажите дату и срок аренды.</p></div>
+      <div class="st rv"><h3>Подпишите и оплатите</h3><p>Договор подписывается SMS-кодом, оплата переводом Kaspi.</p></div>
+      <div class="st rv"><h3>Получите</h3><p>Заберите в филиале или закажите доставку по городу.</p></div>
+      <div class="st rv"><h3>Работайте</h3><p>Стройте с уверенностью, а потом просто верните инструмент.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="branches" style="padding-top:20px">
+  <div class="wrap">
+    <div class="rv"><span class="kicker">Где нас найти</span><h2>Мы <span>рядом</span></h2></div>
+    <div class="br">
+      <div class="b rv">
+        <span class="kicker">Филиал №1</span>
+        <h3>Караганда</h3>
+        <p>Доставка по всему городу. Работаем без выходных.</p>
+        <div class="addr">📍 Адрес уточняйте по телефону</div>
+        <a href="#" class="btn wa" data-msg="Здравствуйте! Пишу по филиалу в Караганде.">Связаться</a>
+      </div>
+      <div class="b new rv">
+        <span class="lbl">Новый</span>
+        <span class="kicker">Филиал №2</span>
+        <h3>Сарань</h3>
+        <p>Наш второй филиал. Ждём вас!</p>
+        <div class="addr">📍 ул. Абая, 27 · 8-й подъезд</div>
+        <a href="https://2gis.kz/search/%D0%A1%D0%B0%D1%80%D0%B0%D0%BD%D1%8C%20%D0%90%D0%B1%D0%B0%D1%8F%2027" target="_blank" rel="noopener" class="btn">Открыть в 2GIS</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-bottom:0">
+  <div class="wrap">
+    <div class="final rv">
+      <div><h2>Стройте с уверенностью <span>с Qural Saiman!</span></h2>
+      <p>Пишите или звоните, чтобы уточнить наличие и оформить аренду. Ответим быстро.</p></div>
+      <div class="btns">
+        <a href="#" class="btn wa" data-msg="Здравствуйте! Хочу оформить аренду.">💬 Написать в WhatsApp</a>
+        <a href="#" class="btn ghost tel">📞 Позвонить</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <div class="logo"><svg viewBox="0 0 100 100" width="34" height="34"><path d="M50 4 90 27v46L50 96 10 73V27z" fill="none" stroke="#FFD400" stroke-width="10"/></svg><b>QURAL <i>SAIMAN</i></b></div>
+  <div>Аренда строительных инструментов · Караганда · Сарань</div>
+  <div>© 2026</div>
+</div></footer>
+
+<a href="#" class="wa-fab wa" data-msg="Здравствуйте! Хочу арендовать инструмент." aria-label="WhatsApp"><svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6c-2 0-4-.6-5.7-1.6l-.4-.2-3.9 1 1-3.8-.3-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.7c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.7 3.7 0 0 0-1.1 2.7 6.4 6.4 0 0 0 1.3 3.4 14.7 14.7 0 0 0 5.7 5c2.1.9 2.9 1 4 .8a3.4 3.4 0 0 0 2.2-1.6 2.8 2.8 0 0 0 .2-1.6c0-.2-.3-.3-.6-.5z"/></svg></a>
+
+<div class="cart" id="cart">
+  <div class="inf"><b id="cTot">0 ₸</b><span id="cList"></span></div>
+  <button class="btn" id="cGo">Оформить →</button>
+  <button class="x" id="cClr" aria-label="Очистить">✕</button>
+</div>
+
+<div class="lb" id="lb"><img alt=""></div>
+
+<div class="co" id="co"><div class="sheet">
+  <button class="close" id="coX" aria-label="Закрыть">✕</button>
+  <div class="stp" id="stp"><i></i><i></i><i></i><i></i></div>
+  <div id="coBody"></div>
+</div></div>
+
+<script src="app.js"></script>
+<script src="i18n.js"></script>
+<script>
+const CATS = {all:"Все",drill:"Сверление и долбёжка",cut:"Резка",finish:"Отделка и покраска",other:"Прочее"};
+const SPOT = [["kraskopult","Краскопульт MAUNT 595","от 10 000 ₸"],["giraffe","Шлифмашинка «Жираф»","от 5 000 ₸"],
+  ["saw","Торцовочная пила ALTECO","от 5 500 ₸"],["vacuum","Пылесос ALTECO VC 30","4 500 ₸"],
+  ["shtrob","Штроборез ALTECO","5 000 ₸"],["tura","Вышка-тура 5 м","6 000 ₸"],["combo","Комбо-наборы","−10%"],["saran","Филиал в Сарани","ул. Абая, 27"]];
+const TIDS = Object.keys(CATALOG);
+const $ = s => document.querySelector(s);
+const store = { get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}}, set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}} };
+
+document.querySelectorAll(".wa").forEach(a=>{a.href=waLink(a.dataset.msg||"Здравствуйте!");a.target="_blank";a.rel="noopener"});
+document.querySelectorAll(".tel").forEach(a=>a.href="tel:+"+QS.PHONE);
+$("#tk").innerHTML = [...TIDS,...TIDS].map(id=>`<span>${CATALOG[id][0]} · ${fmt(CATALOG[id][1])}</span>`).join("");
+
+/* ===== каталог и корзина ===== */
+let cat="all", q="";
+const cart = new Set(store.get("qs_cart",[]).filter(i=>CATALOG[i]||COMBOS[i]));
+const F=$("#filters");
+F.innerHTML=Object.entries(CATS).map(([k,v])=>`<button class="chip${k=="all"?" on":""}" data-c="${k}">${v}</button>`).join("");
+F.onclick=e=>{const b=e.target.closest(".chip");if(!b)return;cat=b.dataset.c;F.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on",c==b));draw()};
+$("#q").oninput=e=>{q=e.target.value.toLowerCase();draw()};
+
+const G=$("#grid");
+function draw(){
+  G.innerHTML=TIDS.filter(id=>(cat=="all"||CATALOG[id][2]==cat)&&CATALOG[id][0].toLowerCase().includes(q)).map(id=>{const t=CATALOG[id];return `
+    <div class="item${cart.has(id)?" in":""}" data-i="${id}">
+      ${t[4]?'<span class="hit">Хит</span>':""}
+      <div class="emo">${t[3]}</div>
+      <div><div class="tag">${CATS[t[2]]}</div><h3>${t[0]}</h3></div>
+      <div class="bot"><div class="price">${fmt(t[1])}<small>за сутки</small></div><button class="add" aria-label="Добавить">${cart.has(id)?"✓":"+"}</button></div>
+    </div>`}).join("")||'<p style="color:var(--mut)">Ничего не найдено. Напишите нам, возможно, привезём под заказ.</p>';
+  translate(G);drawCombos();
+}
+function toggle(id){cart.has(id)?cart.delete(id):cart.add(id);draw();upd()}
+G.onclick=e=>{const it=e.target.closest(".item");if(it)toggle(it.dataset.i)};
+const perDay=()=>[...cart].reduce((s,i)=>s+itemPrice(i),0);
+function upd(){
+  store.set("qs_cart",[...cart]);
+  $("#cart").classList.toggle("on",cart.size>0);document.body.classList.toggle("has-cart",cart.size>0);
+  $("#cTot").textContent=t("{n} / сутки",{n:fmt(perDay())});
+  $("#cList").textContent=[...cart].map(itemName).join(", ");
+}
+$("#cClr").onclick=()=>{cart.clear();draw();upd()};
+
+function drawCombos(){
+  $("#combos").innerHTML=Object.entries(COMBOS).map(([id,c])=>{const [a,b]=c[0].split(" + ");return `
+  <div class="cb rv v"><h3>${a} <b>+</b> ${b}</h3>
+  <div class="row"><div><div class="old">${fmt(c[1])}</div><div class="new">${fmt(c[2])}</div></div><div class="save">${t("Выгода {n}",{n:fmt(c[1]-c[2])})}</div></div>
+  <button class="btn" data-c="${id}"${cart.has(id)?' style="background:#fff"':""}>${cart.has(id)?"✓ В заказе":"Взять комбо"}</button></div>`}).join("");translate($("#combos"));
+}
+$("#combos").onclick=e=>{const b=e.target.closest("[data-c]");if(b)toggle(b.dataset.c)};
+draw();upd();
+
+/* ===== оформление ===== */
+const today=()=>{const d=new Date();return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`};
+const saved=store.get("qs_client",{});
+const firstSlot=(()=>{const h=new Date().getHours()+1;return h<8?{d:today(),t:"08:00"}:h>22?{d:(()=>{const d=new Date(Date.now()+864e5);return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`})(),t:"08:00"}:{d:today(),t:pad(h)+":00"}})();
+const S={step:1,date:firstSlot.d,time:firstSlot.t,days:1,mode:"delivery",address:saved.address||"",phone:saved.phone||"",comment:"",name:saved.name||"",iin:"",agree:false,codeSent:false,demoCode:"",code:"",order:null,busy:false};
+const startISO=()=>new Date(`${S.date}T${S.time}:00`).toISOString();
+const endISO=()=>new Date(new Date(startISO()).getTime()+S.days*864e5).toISOString();
+const draft=()=>({items:[...cart],days:S.days,start:startISO(),end:endISO(),name:S.name.trim(),iin:S.iin,phone:normPhone(S.phone),total:perDay()*S.days});
+const modeText=m=>m==="delivery"?"Доставка":"Самовывоз: "+QS.BRANCHES[m];
+const TIMES=Array.from({length:15},(_,i)=>pad(8+i)+":00");
+
+function openCo(){if(!cart.size)return;$("#co").classList.add("on");document.body.style.overflow="hidden";render()}
+function closeCo(){$("#co").classList.remove("on");document.body.style.overflow="";if(S.step===4){cart.clear();draw();upd();S.step=1;S.order=null;S.cash=false;S.codeSent=false;S.code="";S.agree=false}}
+$("#cGo").onclick=openCo;$("#coX").onclick=closeCo;
+$("#co").onclick=e=>{if(e.target.id==="co")closeCo()};
+
+function sumBox(edit){
+  const items=[...cart];
+  return `<div class="sum">${items.map(i=>`<div class="l"><span>${esc(itemName(i))}</span><b>${fmt(itemPrice(i))}${edit?`<button class="rm" data-rm="${i}" aria-label="Убрать">✕</button>`:""}</b></div>`).join("")}
+  <div class="tot"><span style="color:var(--mut)">${t("{n} × {d} сут.",{n:fmt(perDay()),d:S.days})}</span><b id="tot">${fmt(perDay()*S.days)}</b></div></div>`;
+}
+
+function render(){
+  document.querySelectorAll("#stp i").forEach((x,i)=>x.classList.toggle("on",i<S.step));
+  const B=$("#coBody");
+  if(S.step===1){
+    B.innerHTML=`<h3 class="t">Детали аренды</h3><p class="sub">Выберите срок и как получить инструмент</p>
+    <div id="sum">${sumBox(true)}</div>
+    <div class="r2">
+      <label class="fld"><span>Дата начала</span><input type="date" data-k="date" min="${today()}" value="${S.date}"><small></small></label>
+      <label class="fld"><span>Время</span><select data-k="time">${TIMES.map(t=>`<option${t===S.time?" selected":""}>${t}</option>`).join("")}</select></label>
+    </div>
+    <div class="fld"><span>Срок аренды, суток</span>
+      <div class="stepper"><button type="button" data-d="-1">−</button><input id="days" inputmode="numeric" value="${S.days}" data-k="days"><button type="button" data-d="1">+</button></div>
+      <small style="color:var(--mut)" id="ret"></small></div>
+    <div class="fld"><span>Получение</span><div class="seg">
+      ${["delivery","krg","saran"].map(m=>`<label><input type="radio" name="mode" value="${m}"${S.mode===m?" checked":""}>${m==="delivery"?"🚚 Доставка":m==="krg"?"📍 Караганда":"📍 Сарань"}</label>`).join("")}
+    </div></div>
+    <label class="fld" id="addrF"><span>Адрес доставки</span><input data-k="address" placeholder="Улица, дом, подъезд, квартира" value="${esc(S.address)}"><small></small></label>
+    <label class="fld"><span>Телефон</span><input data-k="phone" type="tel" inputmode="tel" placeholder="+7 7__ ___ __ __" value="${esc(S.phone)}"><small></small></label>
+    <label class="fld"><span>Комментарий (необязательно)</span><input data-k="comment" placeholder="Например: позвонить за 30 минут" value="${esc(S.comment)}"></label>
+    <div class="err" id="err"></div>
+    <button class="btn full" id="next1">Далее: договор →</button>
+    <p class="note">Стоимость доставки по городу уточнит менеджер</p>`;
+    const sync=()=>{$("#addrF").style.display=S.mode==="delivery"?"":"none";$("#ret").textContent=t("Вернуть: {d}",{d:fmtDate(endISO())});$("#sum").innerHTML=sumBox(true)};
+    sync();
+    B.oninput=e=>{const k=e.target.dataset.k;if(k){S[k]=k==="days"?Math.max(1,Math.min(60,parseInt(e.target.value)||1)):e.target.value;sync()}};
+    B.onchange=e=>{if(e.target.name==="mode"){S.mode=e.target.value;sync()}else B.oninput(e)};
+    B.onclick=e=>{
+      const d=e.target.closest("[data-d]");if(d){S.days=Math.max(1,Math.min(60,S.days+ +d.dataset.d));$("#days").value=S.days;sync();return}
+      const rm=e.target.closest("[data-rm]");if(rm){cart.delete(rm.dataset.rm);draw();upd();if(!cart.size)return closeCo();sync();return}
+      if(e.target.id==="next1")next1();
+    };
+  }
+  if(S.step===2){
+    B.innerHTML=`<h3 class="t">Договор аренды</h3><p class="sub">Заполните данные: договор сформируется автоматически</p>
+    <label class="fld"><span>ФИО полностью</span><input data-k="name" autocomplete="name" placeholder="Фамилия Имя Отчество" value="${esc(S.name)}"><small></small></label>
+    <label class="fld"><span>ИИН</span><input data-k="iin" inputmode="numeric" maxlength="12" placeholder="12 цифр" value="${esc(S.iin)}"><small id="iinE"></small></label>
+    <div class="contract" id="ctr"></div>
+    <label class="chk"><input type="checkbox" id="agree"${S.agree?" checked":""}> Я прочитал договор и обязуюсь вернуть инструмент в исправном состоянии и полной комплектации</label>
+    <div id="sms"></div>
+    <div class="err" id="err"></div>
+    <button class="btn ghost full" id="back" style="margin-top:8px">← Назад</button>`;
+    const upC=()=>{$("#ctr").textContent=contractText(draft())};upC();
+    $("#sms").innerHTML=!S.codeSent
+      ?`<button class="btn full" id="send">${t("Получить SMS-код на +{p}",{p:normPhone(S.phone)})}</button>`
+      :`${S.demoCode?`<div class="demo">${t("Демо-режим: SMS-сервис ещё не подключён. Ваш код: {c}",{c:"<b>"+S.demoCode+"</b>"})}</div>`:""}
+        <label class="fld"><span>Код из SMS</span><input class="otp" id="code" inputmode="numeric" maxlength="4" autocomplete="one-time-code" placeholder="____" value="${esc(S.code)}"></label>
+        <button class="btn full" id="sign">✍️ Подписать договор</button>
+        <p class="note">Не пришёл код? <a href="#" id="resend" style="color:var(--y)">Отправить ещё раз</a></p>`;
+    B.oninput=e=>{const k=e.target.dataset.k;if(k==="iin")e.target.value=e.target.value.replace(/\D/g,"");if(k){S[k]=e.target.value;upC()}
+      if(k==="iin"){const ok=S.iin.length<12||validIIN(S.iin);e.target.classList.toggle("bad",!ok);$("#iinE").textContent=ok?"":t("ИИН введён с ошибкой")}
+      if(e.target.id==="code"){S.code=e.target.value.replace(/\D/g,"");e.target.value=S.code;if(S.code.length===4)sign()}};
+    B.onchange=e=>{if(e.target.id==="agree")S.agree=e.target.checked};
+    B.onclick=e=>{const id=e.target.id;if(id==="back"){S.step=1;render()}if(id==="send")sendCode();if(id==="resend"){e.preventDefault();S.codeSent=false;sendCode()}if(id==="sign")sign()};
+  }
+  if(S.step===3){
+    const o=S.order;
+    B.innerHTML=`<h3 class="t">Оплата Kaspi</h3><p class="sub">${t("Заказ № {id} · договор подписан ✅",{id:o.id})}</p>
+    <div class="pay">
+      <div class="pl">Kaspi перевод по номеру</div>
+      <div class="pn"><span>${QS.KASPI_PHONE}</span><button type="button" class="cpb" id="cp">Скопировать</button></div>
+      <div class="pl" style="margin-top:14px">Сумма перевода</div>
+      <div class="pa">${fmt(o.total)}</div>
+    </div>
+    <div class="sum" style="color:var(--mut);line-height:1.8">
+      1. ${t("Откройте Kaspi.kz → Переводы → По номеру телефона")}<br>
+      2. ${t("Переведите {s} на номер {p}",{s:`<b style="color:var(--y)">${fmt(o.total)}</b>`,p:`<b style="color:var(--tx)">${QS.KASPI_PHONE}</b>`})}<br>
+      3. ${t("Сохраните чек и загрузите его ниже")}
+    </div>
+    <div class="seg2"><button type="button" class="on" data-pm="kaspi">💳 Kaspi перевод</button><button type="button" data-pm="cash">💵 Наличными</button></div>
+    <div id="pmCash" style="display:none">
+      <div class="sum" style="line-height:1.7"><b style="font:900 30px Montserrat;color:var(--y)">${fmt(o.total)}</b><br><span style="color:var(--mut)">${t("Оплата наличными при получении инструмента. Подготовьте сумму без сдачи, если возможно.")}</span></div>
+      <div class="err" id="err2"></div>
+      <button class="btn full" id="cash">💵 Оплачу наличными при получении</button>
+    </div>
+    <div id="pmKaspi">
+    <label class="drop" id="drop"><input type="file" id="file" accept="image/*,application/pdf"><span id="fn">📎 Загрузить чек (фото или PDF)</span></label>
+    <div class="err" id="err"></div>
+    <button class="btn full" id="up" disabled style="opacity:.5">Отправить чек</button>
+    <a class="note" style="display:block;color:#25D366" target="_blank" rel="noopener" href="${waLink(`Здравствуйте! Чек по заказу № ${o.id} на ${fmt(o.total)}.`)}">или отправьте чек в WhatsApp</a>
+    <p class="note">Инструмент передаём после проверки оплаты менеджером</p>
+    </div>`;
+    let file=null;
+    B.oninput=null;
+    B.onchange=e=>{if(e.target.id!=="file")return;file=e.target.files[0]||null;
+      $("#fn").textContent=file?"🧾 "+file.name:t("📎 Загрузить чек (фото или PDF)");$("#drop").classList.toggle("has",!!file);
+      const u=$("#up");u.disabled=!file;u.style.opacity=file?1:.5;$("#err").textContent=""};
+    B.onclick=async e=>{
+      const pm=e.target.closest("[data-pm]");if(pm){B.querySelectorAll("[data-pm]").forEach(x=>x.classList.toggle("on",x===pm));$("#pmCash").style.display=pm.dataset.pm==="cash"?"":"none";$("#pmKaspi").style.display=pm.dataset.pm==="cash"?"none":"";return}
+      if(e.target.id==="cash"){if(S.busy)return;const b=e.target;busy(b,true);
+        const r=await api("payCash",{id:o.id,token:o.token}).catch(()=>({ok:false,error:"Нет связи, попробуйте ещё раз"}));busy(b,false);
+        if(!r.ok)return $("#err2").textContent=t(r.error);S.cash=true;S.step=4;render();return}
+      if(e.target.id==="cp"){navigator.clipboard?.writeText(QS.KASPI_PHONE.replace(/\s/g,"")).catch(()=>{});e.target.textContent=t("Скопировано ✓");return}
+      if(e.target.id!=="up"||S.busy||!file)return;
+      const b=e.target;busy(b,true);
+      try{const p=await receiptPayload(file);const r=await api("uploadReceipt",{id:o.id,token:o.token,...p});if(!r.ok)throw new Error(r.error);S.step=4;render()}
+      catch(err){$("#err").textContent=t(/fetch/i.test(err.message)?"Нет связи, попробуйте ещё раз":err.message)}
+      finally{busy(b,false)}
+    };
+  }
+  if(S.step===4){
+    const o=S.order;
+    B.innerHTML=`<div style="text-align:center"><div class="ok-ic">✓</div><h3 class="t">${S.cash?t("Заказ принят!"):t("Чек получен!")}</h3>
+      <p class="sub">${S.cash?t("Заказ № {id}. Оплата наличными при получении. Менеджер свяжется с вами.",{id:o.id}):t("Заказ № {id}. Менеджер проверит оплату и свяжется с вами.",{id:o.id})}</p></div>
+      <div class="sum">
+        <div class="l"><span>Начало</span><b>${fmtDate(o.start)}</b></div>
+        <div class="l"><span>Возврат</span><b>${fmtDate(o.end)}</b></div>
+        <div class="l"><span>Получение</span><b style="white-space:normal;text-align:right">${o.mode==="delivery"?t("Доставка: {a}",{a:esc(o.address)}):t("Самовывоз: {a}",{a:esc(o.address)})}</b></div>
+        <div class="tot"><span style="color:var(--mut)">${S.cash?t("Наличными при получении"):t("Сумма")}</span><b>${fmt(o.total)}</b></div>
+      </div>
+      <a class="btn full" style="background:#25D366;color:#fff;margin-bottom:10px" target="_blank" rel="noopener" href="${waLink(S.cash?`Здравствуйте! Заказ № ${o.id}, оплачу наличными при получении (${fmt(o.total)}).`:`Здравствуйте! Отправил чек по заказу № ${o.id} на ${fmt(o.total)}.`)}">💬 Написать менеджеру</a>
+      <button class="btn ghost full" id="showC">📄 Мой договор</button>
+      <div class="contract" id="ctr" style="display:none;margin-top:12px"></div>
+      <button class="btn full" id="done" style="margin-top:10px">Готово</button>`;
+    B.oninput=B.onchange=null;
+    B.onclick=e=>{if(e.target.id==="showC"){const c=$("#ctr");c.textContent=o.contract;c.style.display=c.style.display?"":"none"}if(e.target.id==="done")closeCo()};
+  }
+  $("#co").scrollTop=0;translate(B);
+}
+function bad(k,msg){const el=document.querySelector(`#coBody [data-k="${k}"]`);if(el){el.classList.add("bad");el.focus();const s=el.parentElement.querySelector("small");if(s)s.textContent=t(msg)}$("#err").textContent=t(msg);return false}
+function next1(){
+  document.querySelectorAll("#coBody .bad").forEach(x=>x.classList.remove("bad"));document.querySelectorAll("#coBody small").forEach(s=>{if(s.id!=="ret")s.textContent=""});
+  if(new Date(startISO())<new Date(Date.now()-36e5))return bad("date","Выберите время не раньше текущего");
+  if(S.mode==="delivery"&&S.address.trim().length<5)return bad("address","Укажите адрес доставки");
+  if(!/^7\d{10}$/.test(normPhone(S.phone)))return bad("phone","Введите номер в формате +7 7XX XXX XX XX");
+  store.set("qs_client",{name:S.name,phone:S.phone,address:S.address});
+  S.step=2;render();
+}
+function busy(b,on){S.busy=on;if(b){b.disabled=on;b.style.opacity=on?.6:1}}
+async function sendCode(){
+  if(S.name.trim().split(/\s+/).length<2)return bad("name","Укажите фамилию и имя");
+  if(!validIIN(S.iin))return bad("iin","Проверьте ИИН: 12 цифр");
+  if(!S.agree)return $("#err").textContent=t("Подтвердите согласие с договором");
+  $("#err").textContent="";const b=$("#send");busy(b,true);
+  const r=await api("sendCode",{phone:normPhone(S.phone)}).catch(()=>({ok:false,error:"Нет связи, попробуйте ещё раз"}));busy(b,false);
+  if(!r.ok)return $("#err").textContent=t(r.error);
+  S.codeSent=true;S.demoCode=r.demo?r.code:"";render();setTimeout(()=>$("#code")?.focus(),50);
+}
+async function sign(){
+  if(S.busy)return;if(!/^\d{4}$/.test(S.code))return $("#err").textContent=t("Введите 4 цифры из SMS");
+  if(!S.agree)return $("#err").textContent=t("Подтвердите согласие с договором");
+  const b=$("#sign");busy(b,true);$("#err").textContent="";
+  const d=draft();
+  const r=await api("createOrder",{...d,mode:S.mode,address:S.mode==="delivery"?S.address.trim():QS.BRANCHES[S.mode],comment:S.comment,code:S.code}).catch(()=>({ok:false,error:"Нет связи, попробуйте ещё раз"}));
+  busy(b,false);
+  if(!r.ok)return $("#err").textContent=t(r.error);
+  S.order=r.order;S.step=3;render();
+}
+
+/* ===== прочее ===== */
+$("#spot").innerHTML=SPOT.map(s=>`<div class="sp rv" data-src="img/${s[0]}.jpg"><img loading="lazy" src="img/${s[0]}.jpg" alt="${s[1]}"><div class="cap"><b>${s[1]}</b><span>${s[2]}</span></div></div>`).join("");
+const lb=$("#lb");
+const open=src=>{lb.querySelector("img").src=src;lb.classList.add("on")};
+$("#spot").onclick=e=>{const s=e.target.closest(".sp");if(s)open(s.dataset.src)};
+$(".hero-img").onclick=()=>open("img/price.jpg");
+lb.onclick=()=>lb.classList.remove("on");
+
+const hdr=$("#hdr");addEventListener("scroll",()=>hdr.classList.toggle("s",scrollY>30),{passive:true});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("v");io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+
+const LB=$("#lang");const paintLang=()=>{LB.textContent=LANG.cur==="kz"?"РУС":"ҚАЗ"};
+LB.onclick=()=>{setLang(LANG.cur==="kz"?"ru":"kz");paintLang();translate();draw();upd();if($("#co").classList.contains("on"))render()};
+paintLang();translate();
+</script>
+</body>
+</html>
